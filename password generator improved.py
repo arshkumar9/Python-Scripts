@@ -3,38 +3,43 @@ import string
 
 
 def password_length():
+    while True:
+        try:
+            password_len = int(input("Enter the length of password"))
+            return password_len
 
-    try:
-        password_len = int(input("Enter the length of password"))
-        return password_len
+        except ValueError:
+            print("Wrong value. ")
 
-    except ValueError:
-        print("Wrong value. ")
+def user_response_function(msg):
+    while True:
+        response = input(msg).lower()
+        if response == 'y' or response == 'yes':
+            return True
+        elif response == 'n' or response == 'no':
+            return False
+        print("Unable to parse value.  ")
 
 def password_generator(len):
 
-    try:
-        passw = ''
-        pass_string = ''
+    passw = ''
+    pass_string = ''
 
-        lower = input("Do you want lowercase letter? [Y/N]")
-        upper = input("Do you want uppercase letter? [Y/N]")
-        digit = input("Do you want  digits? [Y/N]")
+    while True:
 
-    except ValueError:
-        print("Unable to parse value.")
+        if  user_response_function("Do you want lowercase letter? [Y/N]"):
+            pass_string += (string.ascii_lowercase)
+        if  user_response_function("Do you want uppercase letter? [Y/N]"):
+            pass_string += (string.ascii_uppercase)
+        if  user_response_function("Do you want  digits? [Y/N]"):
+            pass_string += (string.digits)
+        
+        if pass_string == '':
+            print("You need atleast 1 character set in your password. ")
+        else:
+            break
 
-
-    if upper == 'y' or upper == 'yes':
-        pass_string += (string.ascii_uppercase)
-
-    if digit == 'y' or digit == 'yes':
-        pass_string += (string.digits)
-
-    if lower == 'y' or lower == 'yes':
-        pass_string += (string.ascii_lowercase)
-    
-    passw=''.join(secrets.choice(pass_string) for _ in range(len))
+    passw=''.join(secrets.choice(pass_string) for x in range(len))
 
     return passw 
 
