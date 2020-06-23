@@ -1,68 +1,48 @@
-import response
-import random
-from  string import ascii_letters ,digits
-userchoice_size = None
-userchoice_syntax_lower = None
-userchoice_syntax_upper = None
-userchoice_syntax_number = None
+import secrets
+import string
 
-while True:
-    try:
 
-        if userchoice_size == None:
-            userchoice_size = int(input("Enter the length of the password : "))
-        else:
-            userchoice_size = userchoice_size
+def password_length():
+    while True:
+        try:
+            password_len = int(input("Enter the length of password"))
+            return password_len
 
-        if userchoice_syntax_lower == None:
-            userchoice_syntax_lower = input("Do you want lower case letter?(y or n) ").lower()
-        else:
-            userchoice_syntax_lower = userchoice_syntax_lower
-        if userchoice_syntax_lower != 'y' and  userchoice_syntax_lower != 'yes' and userchoice_syntax_lower != 'n' and  userchoice_syntax_lower != 'no':
-            raise ValueError
+        except ValueError:
+            print("Wrong value. ")
+
+def user_response_function(msg):
+    while True:
+        response = input(msg).lower()
+        if response == 'y' or response == 'yes':
+            return True
+        elif response == 'n' or response == 'no':
+            return False
+        print("Unable to parse value.  ")
+
+def password_generator(len):
+
+    passw = ''
+    pass_string = ''
+
+    while True:
+
+        if  user_response_function("Do you want lowercase letter? [Y/N]"):
+            pass_string += (string.ascii_lowercase)
+        if  user_response_function("Do you want uppercase letter? [Y/N]"):
+            pass_string += (string.ascii_uppercase)
+        if  user_response_function("Do you want  digits? [Y/N]"):
+            pass_string += (string.digits)
         
-        if userchoice_syntax_upper == None:
-            userchoice_syntax_upper = input("Do you want upper case letter?(y or n) ").lower()
+        if pass_string == '':
+            print("You need atleast 1 character set in your password. ")
         else:
-            userchoice_syntax_upper = userchoice_syntax_upper
-        if userchoice_syntax_upper != 'y' and  userchoice_syntax_upper != 'yes' and userchoice_syntax_upper != 'n' and  userchoice_syntax_upper != 'no':
-            raise ValueError
+            break
 
-        if userchoice_syntax_number == None:
-            userchoice_syntax_number = input("Do you want numbers?(y or n) ").lower()
-        else:
-            userchoice_syntax_number = userchoice_syntax_number
-        if userchoice_syntax_number != 'y' and  userchoice_syntax_number != 'yes' and userchoice_syntax_number != 'n' and  userchoice_syntax_number != 'no':
-            raise ValueError
+    passw=''.join(secrets.choice(pass_string) for x in range(len))
 
-    except ValueError:
-        print("Wrong Input")
-        continue
-    if (userchoice_syntax_lower == 'n' or userchoice_syntax_lower == 'no') and (userchoice_syntax_upper == 'n' or userchoice_syntax_upper == 'no') and (userchoice_syntax_number == 'n' or userchoice_syntax_number == 'no'):
-        print("Not every possible character choice can be no!")
-        continue
-    counter=0
-    password=''
-    choice_list=[1,2,3]
-    while counter <= userchoice_size:
-        choice_number = random.choice(choice_list)
-        if choice_number == 1:
-            if userchoice_syntax_upper == 'y' or userchoice_syntax_upper == 'yes':
-                password = password + str(random.choice(ascii_letters.upper())) 
-                counter += 1
-        if choice_number == 2:
-            if userchoice_syntax_number=='y' or userchoice_syntax_number == 'yes':
-                password = password + str(random.choice(digits))
-                counter += 1
-        if choice_number == 3:
-            if userchoice_syntax_lower == 'y' or userchoice_syntax_lower == 'yes':
-                password= password + str(random.choice(ascii_letters.lower())) 
-                counter += 1
-    print (password)
-    if response.response_loop()=='break':
-        break
-    else:
-        userchoice_size = None
-        userchoice_syntax_lower = None
-        userchoice_syntax_upper = None
-        userchoice_syntax_number = None
+    return passw 
+
+length = password_length()
+password = password_generator(length)
+print(password)
