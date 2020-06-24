@@ -6,10 +6,11 @@ def password_length():
     while True:
         try:
             password_len = int(input("Enter the length of password"))
-            return password_len
-
+            if password_len > 0:
+                return password_len
+            print("Password length must be greater than 0. ")
         except ValueError:
-            print("Wrong value. ")
+            print("Integers only. ")
 
 def user_response_function(msg):
     while True:
