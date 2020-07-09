@@ -8,9 +8,10 @@ def random_word():
 def main_game():
     word = random_word().lower()
     print(word)
+    backup_word = word
     guess_word=('_' * len(word))
     trial = 0
-    while trial < 6 and  guess_word != word:
+    while trial < 6 and  guess_word != backup_word:
         print("Guess word", guess_word)
         guess_letter = input("Enter your guess ")
         check = word.find(guess_letter)
@@ -18,11 +19,14 @@ def main_game():
         if check == -1:
             trial += 1
             hangman_diagram(trial)
-            print(trial)
         else:
-            print(check)
-            guess_word = guess_word[:check] + guess_letter + guess_word[check+1:]
-    return None
+            while guess_letter in word:
+                check = word.find(guess_letter)
+                word = word[:check ] + '_' + word[ check+1:]
+                guess_word = guess_word[:check] + guess_letter + guess_word[check+1:]
+    if guess_word == backup_word:
+        return True
+    return False 
     
 
 def hangman_diagram(trial):
@@ -103,10 +107,15 @@ def hangman_diagram(trial):
                   /   \          | 
                                 /| 
                              ========''') 
-string = "Hello"
-if 's' in string:
-    print("s")
-elif 'H' in string:
-    print("helo")
-print(len(string))
-main_game()
+
+while True:
+    if main_game():
+        print("You win")
+        response = input('Do you want to continue [y/n] ').lower()
+        if response == 'n':
+            break
+            
+
+    else :
+        print("You lose")
+
