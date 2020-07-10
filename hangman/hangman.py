@@ -10,12 +10,20 @@ def main_game():
     print(word)
     backup_word = word
     guess_word=('_' * len(word))
+
     trial = 0
     while trial < 6 and  guess_word != backup_word:
         print("Guess word", guess_word)
-        guess_letter = input("Enter your guess ")
-        check = word.find(guess_letter)
+        guess_letter = input("Enter your guess ").lower()
 
+        if len(guess_letter) > 1:
+            for x in guess_letter:
+                print(x)
+                check = word.find(x)
+
+        else:
+            check = word.find(guess_letter)
+############ Needs to be made function #################
         if check == -1:
             trial += 1
             hangman_diagram(trial)
@@ -27,7 +35,7 @@ def main_game():
     if guess_word == backup_word:
         return True
     return False 
-    
+############################################################# 
 
 def hangman_diagram(trial):
     if trial == 1:
