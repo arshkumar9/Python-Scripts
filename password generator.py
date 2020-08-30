@@ -1,7 +1,6 @@
 import secrets
 import string
 
-
 def password_length():
     while True:
         try:
@@ -22,26 +21,22 @@ def user_response_function(msg):
         print("Unable to parse value.  ")
 
 def password_generator(len):
-
     passw = ''
     pass_string = ''
 
     while True:
-
         if  user_response_function("Do you want lowercase letter? [Y/N]"):
             pass_string += (string.ascii_lowercase)
         if  user_response_function("Do you want uppercase letter? [Y/N]"):
             pass_string += (string.ascii_uppercase)
         if  user_response_function("Do you want  digits? [Y/N]"):
             pass_string += (string.digits)
-        
         if pass_string == '':
             print("You need atleast 1 character set in your password. ")
         else:
             break
 
     passw=''.join(secrets.choice(pass_string) for x in range(len))
-
     return passw 
 
 length = password_length()
