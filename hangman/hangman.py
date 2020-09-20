@@ -119,6 +119,7 @@ def hangman_diagram(trial):
                                 /| 
                              ========''') 
 
+####################Visual Messages End#################################
 def user_exit(yes_no):
     if yes_no == 'n':
         return False

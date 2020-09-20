@@ -1,8 +1,8 @@
 # Program to convert number from any base to decimal
-number=None
-base_from=None
+number = None
+base_from = None
 while True:
-    negative_flag=False
+    negative_flag = False
 
     try:
         if base_from == None:
@@ -16,7 +16,7 @@ while True:
          continue
 
     if number == None:
-        number=input("Enter a number : ")
+        number = input("Enter a number : ")
     else:
         number = number
 
