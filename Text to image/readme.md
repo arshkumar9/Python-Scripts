@@ -1,5 +1,5 @@
-##Text to Image
-#Libraries required
+## Text to Image
+# Libraries required
     * Pillow(PIL fork) 
     * textwrap(To implement multi line text.)
 
